@@ -1,41 +1,44 @@
 import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
+import { Input, Text, Button } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation'
 import { Context as AuthContext } from '../context/AuthContext'
 import AuthForm from '../components/AuthForm'
 import NavLink from '../components/NavLink'
+import Spacer from '../components/Spacer'
 
 const SignupScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage } = useContext(AuthContext)
-
   return (
     <View style={styles.container}>
-      <NavigationEvents onWillBlur={clearErrorMessage} />
-      <AuthForm
-        headerText='Sign Up for Tracker'
-        errorMessage={state.errorMessage}
-        submitButtonText='Sign Up'
-        onSubmit={signup}
-      />
-      <NavLink
-        routeName='Signin'
-        text='Already have an account? Sign in instead!'
-      />
+      <Spacer>
+        <Text style={styles.title}>Sign up for Tracker</Text>
+      </Spacer>
+      <Input label='Email' />
+      <Spacer />
+      <Input label='Password' />
+      <Spacer>
+        <Button title='Sign Up' />
+      </Spacer>
     </View>
   )
 }
 
 SignupScreen.navigationOptions = () => {
   return {
-    header: null,
+    headerShown: false,
   }
 }
 
 const styles = StyleSheet.create({
+  title: {
+    marginBottom: 15,
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
   container: {
+    marginBottom: 200,
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 250,
   },
 })
 
