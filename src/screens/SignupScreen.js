@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Input, Text, Button } from 'react-native-elements'
+import { View, StyleSheet } from 'react-native'
+import { Text } from 'react-native-elements'
 import { NavigationEvents } from 'react-navigation'
 import { Context as AuthContext } from '../context/AuthContext'
 import AuthForm from '../components/AuthForm'
@@ -14,38 +14,16 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Spacer>
-        <Text style={styles.title}>Sign up for Tracker</Text>
-      </Spacer>
-      <Input
-        label='Email'
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize='none'
-        autoCorrect={false}
+      <AuthForm
+        headerText='Sign up for Tracker'
+        errorMessage={state.errorMessage}
+        submitButtonText='Sign Up'
+        onSubmit={signup}
       />
-      <Spacer />
-      <Input
-        label='Password'
-        value={password}
-        onChangeText={setPassword}
-        autoCapitalize='none'
-        autoCorrect={false}
-        secureTextEntry
+      <NavLink
+        routeName='Signin'
+        text='Already have an account? Sign in instead.'
       />
-      {state.errorMessage ? (
-        <Text style={styles.error}>{state.errorMessage}</Text>
-      ) : null}
-      <Spacer>
-        <Button title='Sign Up' onPress={() => signup({ email, password })} />
-      </Spacer>
-      <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-        <Spacer>
-          <Text style={styles.link}>
-            Already have an account? Sign in instead
-          </Text>
-        </Spacer>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -66,12 +44,6 @@ const styles = StyleSheet.create({
     marginBottom: 200,
     flex: 1,
     justifyContent: 'center',
-  },
-  error: {
-    color: 'red',
-    fontSize: 16,
-    marginLeft: 15,
-    marginTop: 15,
   },
   link: {
     color: 'blue',
