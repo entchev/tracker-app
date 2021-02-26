@@ -7,7 +7,15 @@ import { Context as AuthContext } from '../context/AuthContext'
 import { FontAwesome } from '@expo/vector-icons'
 
 const AccountScreen = () => {
-  return <Text style={{ fontSize: 48 }}>Account</Text>
+  const { signout } = useContext(AuthContext)
+  return (
+    <SafeAreaView forceInset={{ top: 'always' }}>
+      <Text style={{ fontSize: 48 }}>Account</Text>
+      <Spacer>
+        <Button title='Sign Out' onPress={signout} />
+      </Spacer>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({})

@@ -8,12 +8,16 @@ import NavLink from '../components/NavLink'
 import Spacer from '../components/Spacer'
 
 const SignupScreen = ({ navigation }) => {
-  const { state, signup } = useContext(AuthContext)
+  const { state, signup, clearErrorMessage } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   return (
     <View style={styles.container}>
+      <NavigationEvents
+        onWillBlur={clearErrorMessage}
+        onWillFocus={clearErrorMessage}
+      />
       <AuthForm
         headerText='Sign up for Tracker'
         errorMessage={state.errorMessage}

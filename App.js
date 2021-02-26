@@ -16,6 +16,7 @@ import { Provider as TrackProvider } from './src/context/TrackContext'
 import { FontAwesome } from '@expo/vector-icons'
 
 const switchNavigator = createSwitchNavigator({
+  ResolveAuth: ResolveAuthScreen,
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
