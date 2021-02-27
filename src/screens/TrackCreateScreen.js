@@ -1,30 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
+import '../_mockLocation'
+import React, { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Butto, Text } from 'react-native-elements'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView, withNavigationFocus } from 'react-navigation'
 import Spacer from '../components/Spacer'
 import { Context as AuthContext } from '../context/AuthContext'
+import { Context as LocationContext } from '../context/LocationContext'
 import { FontAwesome } from '@expo/vector-icons'
 import Map from '../components/Map'
-import { requestPermissionsAsync } from 'expo-location'
+import useLocation from '../hooks/useLocation'
+import TrackForm from '../components/TrackForm'
 
-const TrackCreateScreen = () => {
-  const [err, setErr] = useState(null)
-
-  const startWatching = async () => {
-    try {
-      const { granted } = await requestPermissionsAsync()
-      if (!granted) {
-        throw new Error('Location permission not granted')
-      }
-    } catch (e) {
-      setErr(e)
-    }
-  }
-
-  useEffect(() => {
-    startWatching()
-  }, [])
+const TrackCreateScreen = ({ isFocused }) => {
+  const { state, addLocation } = useContext(LocationContext)
+  const [err] = useLocation(isFocused, (location) => {
+    addLocation(location, state.recording)
+  })
 
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
@@ -35,6 +26,7 @@ const TrackCreateScreen = () => {
           <Text style={styles.warning}>Please enable location services</Text>
         </Spacer>
       ) : null}
+      <TrackForm />
     </SafeAreaView>
   )
 }
@@ -46,4 +38,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default TrackCreateScreen
+export default withNavigationFocus(TrackCreateScreen)

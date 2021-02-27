@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native'
 
 let url
 if (__DEV__) {
-  url = 'http://6d37c7a1f3be.ngrok.io' // ngrok url expires every 2 hours, when it does the ngrok instance needs to be relaunched
+  url = 'http://e1541773815c.ngrok.io' // ngrok url expires every 2 hours, when it does the ngrok instance needs to be relaunched
 } else {
   url = 'https://sleepy-savannah-10606.herokuapp.com'
 }
